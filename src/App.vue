@@ -455,11 +455,11 @@ const goToGames = () => {
           </div>
 
           <!-- App Details Section -->
-          <div class="bg-black/80 backdrop-blur-md p-4 absolute bottom-0 left-0 right-0">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
+          <div class="bg-black/80 backdrop-blur-md p-3 sm:p-4 absolute bottom-0 left-0 right-0">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
                 <!-- App Icon -->
-                <div class="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl overflow-hidden flex-shrink-0">
                   <img
                     src="https://api.builder.io/api/v1/image/assets/TEMP/994a65d017f226502fe498f79ba91e9ba2fc7c06?width=225"
                     alt="Lambus Travel Planner Icon"
@@ -469,18 +469,18 @@ const goToGames = () => {
 
                 <!-- App Info -->
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-white text-lg font-semibold mb-1">
+                  <h3 class="text-white text-base sm:text-lg font-semibold mb-1 truncate">
                     Lambus | Travel Planner
                   </h3>
-                  <p class="text-gray-300 text-sm">
+                  <p class="text-gray-300 text-xs sm:text-sm truncate">
                     The All-in-One travel planner
                   </p>
                 </div>
               </div>
 
               <!-- Get Button -->
-              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-6 py-3 rounded-full">
-                <span class="text-white font-bold text-sm tracking-wider uppercase">
+              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-4 sm:px-6 py-2 sm:py-3 rounded-full flex-shrink-0">
+                <span class="text-white font-bold text-xs sm:text-sm tracking-wider uppercase">
                   Get
                 </span>
               </button>
