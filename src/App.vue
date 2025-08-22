@@ -62,7 +62,7 @@ const goToToday = () => {
     </div>
 
     <!-- Top Bar - Search -->
-    <div v-if="activeTab === 'search'" class="bg-gray-900 border-b border-gray-800">
+    <div v-if="activeView === 'search'" class="bg-gray-900 border-b border-gray-800">
       <div class="pt-12 pb-4 px-4">
         <div class="flex items-center gap-3">
           <!-- Search Input -->
