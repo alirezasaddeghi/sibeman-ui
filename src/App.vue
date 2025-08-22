@@ -493,23 +493,23 @@ const goToGames = () => {
     <!-- Main Content - Games -->
     <div v-if="activeView === 'games'" class="px-4 pb-24">
       <!-- App List -->
-      <div class="space-y-6">
+      <div class="space-y-5 sm:space-y-6">
         <!-- App 1 -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
             <!-- App Icon Placeholder -->
-            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
 
             <!-- App Info -->
             <div class="flex-1 min-w-0">
-              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
-              <p class="text-gray-400 text-sm">Description</p>
+              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+              <p class="text-gray-400 text-sm truncate">Description</p>
             </div>
           </div>
 
           <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
-            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
               Open
             </span>
           </button>
@@ -519,21 +519,21 @@ const goToGames = () => {
         <div class="border-t border-white/20"></div>
 
         <!-- App 2 -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
             <!-- App Icon Placeholder -->
-            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
 
             <!-- App Info -->
             <div class="flex-1 min-w-0">
-              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
-              <p class="text-gray-400 text-sm">Description</p>
+              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+              <p class="text-gray-400 text-sm truncate">Description</p>
             </div>
           </div>
 
           <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
-            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
               Open
             </span>
           </button>
@@ -543,21 +543,21 @@ const goToGames = () => {
         <div class="border-t border-white/20"></div>
 
         <!-- App 3 -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
             <!-- App Icon Placeholder -->
-            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
 
             <!-- App Info -->
             <div class="flex-1 min-w-0">
-              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
-              <p class="text-gray-400 text-sm">Description</p>
+              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+              <p class="text-gray-400 text-sm truncate">Description</p>
             </div>
           </div>
 
           <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
-            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
               Open
             </span>
           </button>
