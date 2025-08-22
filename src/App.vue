@@ -75,7 +75,7 @@ const goToToday = () => {
                 v-model="searchQuery"
                 type="text"
                 class="bg-transparent text-gray-100 flex-1 outline-none text-base"
-                placeholder="Search"
+                placeholder="Games, Apps, Stories and More"
               />
               <button v-if="searchQuery" @click="searchQuery = ''" class="ml-2 text-gray-400">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
