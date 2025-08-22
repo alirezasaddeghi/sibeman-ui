@@ -313,7 +313,7 @@ const goToGames = () => {
               <div class="flex items-center space-x-2">
                 <!-- Star Rating -->
                 <div class="flex items-center">
-                  <span class="text-gray-400 text-xs">★★★★☆</span>
+                  <span class="text-gray-400 text-xs">★★★★��</span>
                 </div>
                 <span class="text-gray-400 text-xs">4,3K</span>
               </div>
@@ -498,75 +498,83 @@ const goToGames = () => {
 
     <!-- Main Content - Games -->
     <div v-if="activeView === 'games'" class="px-4 pb-24">
-      <!-- App List -->
-      <div class="space-y-5 sm:space-y-6">
-        <!-- App 1 -->
-        <div class="flex items-center justify-between gap-3">
-          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-            <!-- App Icon Placeholder -->
-            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
-
-            <!-- App Info -->
-            <div class="flex-1 min-w-0">
-              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-              <p class="text-gray-400 text-sm truncate">Description</p>
-            </div>
-          </div>
-
-          <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-              Open
-            </span>
-          </button>
+      <!-- What to Play This Week Section -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-white text-2xl sm:text-3xl font-bold leading-tight">What to Play This Week</h2>
+          <button class="text-blue-400 text-base sm:text-lg font-medium whitespace-nowrap">See All</button>
         </div>
 
-        <!-- Divider -->
-        <div class="border-t border-white/20"></div>
+        <!-- App List -->
+        <div class="space-y-5 sm:space-y-6">
+          <!-- App 1 -->
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <!-- App Icon Placeholder -->
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
 
-        <!-- App 2 -->
-        <div class="flex items-center justify-between gap-3">
-          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-            <!-- App Icon Placeholder -->
-            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
-
-            <!-- App Info -->
-            <div class="flex-1 min-w-0">
-              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-              <p class="text-gray-400 text-sm truncate">Description</p>
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+                <p class="text-gray-400 text-sm truncate">Description</p>
+              </div>
             </div>
+
+            <!-- Open Button -->
+            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
+                Open
+              </span>
+            </button>
           </div>
 
-          <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-              Open
-            </span>
-          </button>
-        </div>
+          <!-- Divider -->
+          <div class="border-t border-white/20"></div>
 
-        <!-- Divider -->
-        <div class="border-t border-white/20"></div>
+          <!-- App 2 -->
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <!-- App Icon Placeholder -->
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
 
-        <!-- App 3 -->
-        <div class="flex items-center justify-between gap-3">
-          <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-            <!-- App Icon Placeholder -->
-            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
-
-            <!-- App Info -->
-            <div class="flex-1 min-w-0">
-              <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-              <p class="text-gray-400 text-sm truncate">Description</p>
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+                <p class="text-gray-400 text-sm truncate">Description</p>
+              </div>
             </div>
+
+            <!-- Open Button -->
+            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
+                Open
+              </span>
+            </button>
           </div>
 
-          <!-- Open Button -->
-          <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-            <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-              Open
-            </span>
-          </button>
+          <!-- Divider -->
+          <div class="border-t border-white/20"></div>
+
+          <!-- App 3 -->
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <!-- App Icon Placeholder -->
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
+                <p class="text-gray-400 text-sm truncate">Description</p>
+              </div>
+            </div>
+
+            <!-- Open Button -->
+            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
+              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
+                Open
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
