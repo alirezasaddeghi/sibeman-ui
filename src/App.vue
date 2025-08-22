@@ -313,7 +313,7 @@ const goToGames = () => {
               <div class="flex items-center space-x-2">
                 <!-- Star Rating -->
                 <div class="flex items-center">
-                  <span class="text-gray-400 text-xs">★★★★��</span>
+                  <span class="text-gray-400 text-xs">★★★★☆</span>
                 </div>
                 <span class="text-gray-400 text-xs">4,3K</span>
               </div>
@@ -498,82 +498,71 @@ const goToGames = () => {
 
     <!-- Main Content - Games -->
     <div v-if="activeView === 'games'" class="px-4 pb-24">
-      <!-- What to Play This Week Section -->
-      <div class="mb-6">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-white text-2xl sm:text-3xl font-bold leading-tight">What to Play This Week</h2>
-          <button class="text-blue-400 text-base sm:text-lg font-medium whitespace-nowrap">See All</button>
-        </div>
+      <!-- Editor's Choice Section -->
+      <div class="mb-2">
+        <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-4">
+          Editor's Choice
+        </p>
 
-        <!-- App List -->
-        <div class="space-y-5 sm:space-y-6">
-          <!-- App 1 -->
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-              <!-- App Icon Placeholder -->
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+        <!-- Featured Game Card - Space Pirates -->
+        <div class="relative overflow-hidden rounded-xl">
+          <!-- Background Image -->
+          <div class="relative h-64 sm:h-80 bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600">
+            <!-- Space/Game background -->
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/58fef74e4fa5c6e23742f85ead0265abea71a4cb?width=2092"
+              alt="Space Background"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
 
-              <!-- App Info -->
-              <div class="flex-1 min-w-0">
-                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-                <p class="text-gray-400 text-sm truncate">Description</p>
-              </div>
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+            <!-- Game Info Overlay -->
+            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 max-w-xs sm:max-w-sm">
+              <p class="text-blue-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1 sm:mb-2">
+                Editor's Choice
+              </p>
+              <h2 class="text-white text-2xl sm:text-3xl font-bold mb-1 sm:mb-2 leading-tight">
+                Space Pirates
+              </h2>
+              <p class="text-gray-300 text-base sm:text-lg">
+                Join the intergalactic battle
+              </p>
             </div>
-
-            <!-- Open Button -->
-            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-                Open
-              </span>
-            </button>
           </div>
 
-          <!-- Divider -->
-          <div class="border-t border-white/20"></div>
+          <!-- Game Details Section -->
+          <div class="bg-black/80 backdrop-blur-md p-3 sm:p-4 absolute bottom-0 left-0 right-0">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+                <!-- Game Icon -->
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl overflow-hidden flex-shrink-0">
+                  <img
+                    src="https://api.builder.io/api/v1/image/assets/TEMP/994a65d017f226502fe498f79ba91e9ba2fc7c06?width=225"
+                    alt="Space Pirates Icon"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
 
-          <!-- App 2 -->
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-              <!-- App Icon Placeholder -->
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
-
-              <!-- App Info -->
-              <div class="flex-1 min-w-0">
-                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-                <p class="text-gray-400 text-sm truncate">Description</p>
+                <!-- Game Info -->
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-white text-base sm:text-lg font-semibold mb-1 truncate">
+                    Space Pirates
+                  </h3>
+                  <p class="text-gray-300 text-xs sm:text-sm truncate">
+                    Join the intergalactic battle
+                  </p>
+                </div>
               </div>
+
+              <!-- Get Button -->
+              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-4 sm:px-6 py-2 sm:py-3 rounded-full flex-shrink-0">
+                <span class="text-white font-bold text-xs sm:text-sm tracking-wider uppercase">
+                  Get
+                </span>
+              </button>
             </div>
-
-            <!-- Open Button -->
-            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-                Open
-              </span>
-            </button>
-          </div>
-
-          <!-- Divider -->
-          <div class="border-t border-white/20"></div>
-
-          <!-- App 3 -->
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-              <!-- App Icon Placeholder -->
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
-
-              <!-- App Info -->
-              <div class="flex-1 min-w-0">
-                <h3 class="text-white text-base sm:text-lg font-medium mb-1 truncate">App Name</h3>
-                <p class="text-gray-400 text-sm truncate">Description</p>
-              </div>
-            </div>
-
-            <!-- Open Button -->
-            <button class="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full flex-shrink-0">
-              <span class="text-blue-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
-                Open
-              </span>
-            </button>
           </div>
         </div>
       </div>
