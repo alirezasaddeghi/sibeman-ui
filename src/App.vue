@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive, nextTick, onMounted, onUnmounted } from 'vue'
 
 const activeTab = ref('today')
 const activeView = ref('today') // 'today', 'search', 'appDetail', 'apps', 'games'
@@ -20,6 +20,27 @@ const selectedApp = ref({
     'See Figma designs and updates in real-time on any device',
     'Works over any internet connection on any number of devices'
   ]
+})
+
+// Fullscreen animation state
+const isCardExpanded = ref(false)
+const expandedCardRef = ref<HTMLElement | null>(null)
+const featuredCardRef = ref<HTMLElement | null>(null)
+const backdropRef = ref<HTMLElement | null>(null)
+const originalRect = ref<DOMRect | null>(null)
+const showCloseButton = ref(false)
+const selectedCardData = ref<any>(null)
+
+const expandedCardStyle = reactive({
+  position: 'fixed' as const,
+  top: '0px',
+  left: '0px',
+  width: '0px',
+  height: '0px',
+  transform: 'none',
+  transition: 'all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)',
+  borderRadius: '1rem',
+  zIndex: '50'
 })
 
 const openAppDetail = (app: any) => {
@@ -50,6 +71,169 @@ const goToGames = () => {
   activeTab.value = 'games'
   activeView.value = 'games'
 }
+
+// Card data definitions
+const cardData = {
+  figma: {
+    id: 'figma',
+    name: 'Figma',
+    category: 'Utilities',
+    developer: 'Figma Inc.',
+    description: 'Design, prototype, and collaborate',
+    icon: 'https://api.builder.io/api/v1/image/assets/TEMP/53c7d0d79a9655a201ff1c663652323862f47f7c?width=94',
+    heroBackground: 'bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700',
+    heroPattern: 'rainbow-heart',
+    about: 'Figma is the leading collaborative design tool for building meaningful products. Teams use Figma to brainstorm, design, and build better products — from start to finish.',
+    features: [
+      { title: 'Real-time collaboration', description: 'Work together with your team in real-time' },
+      { title: 'Vector editing', description: 'Powerful vector editing tools for precision design' },
+      { title: 'Prototyping', description: 'Create interactive prototypes with ease' }
+    ]
+  },
+  spotify: {
+    id: 'spotify',
+    name: 'Spotify',
+    category: 'Music',
+    developer: 'Spotify AB',
+    description: 'Music streaming and discovery',
+    icon: null, // Uses SVG icon
+    heroBackground: 'bg-gradient-to-br from-green-400 via-green-500 to-green-600',
+    heroPattern: 'music-waves',
+    about: 'Spotify is a digital music service that gives you access to millions of songs, podcasts and videos from artists all over the world.',
+    features: [
+      { title: 'Music streaming', description: 'Stream millions of songs instantly' },
+      { title: 'Personalized playlists', description: 'AI-powered music recommendations' },
+      { title: 'Podcast library', description: 'Access to thousands of podcasts' }
+    ]
+  },
+  notion: {
+    id: 'notion',
+    name: 'Notion',
+    category: 'Productivity',
+    developer: 'Notion Labs, Inc.',
+    description: 'All-in-one workspace for notes, tasks, wikis, and databases',
+    icon: null, // Uses custom N icon
+    heroBackground: 'bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900',
+    heroPattern: 'document-grid',
+    about: 'Notion is an all-in-one workspace where you can write, plan, collaborate and get organized. Take notes, keep databases, build a wiki, project manage or even create a website.',
+    features: [
+      { title: 'Notes & Documentation', description: 'Rich text editor with blocks and formatting' },
+      { title: 'Databases & Tables', description: 'Organize information in powerful databases' },
+      { title: 'Team Collaboration', description: 'Share and collaborate with your team' }
+    ]
+  },
+  instagram: {
+    id: 'instagram',
+    name: 'Instagram',
+    category: 'Photo & Video',
+    developer: 'Instagram, Inc.',
+    description: 'Photo and video sharing social network',
+    icon: null, // Uses SVG icon
+    heroBackground: 'bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500',
+    heroPattern: 'camera',
+    about: 'Instagram is a photo and video sharing social networking service that allows users to edit and upload photos and short videos.',
+    features: [
+      { title: 'Photo & Video Sharing', description: 'Share moments with friends and followers' },
+      { title: 'Stories & Reels', description: 'Create engaging short-form content' },
+      { title: 'Direct Messaging', description: 'Connect privately with friends' }
+    ]
+  }
+}
+
+// Fullscreen animation functions
+const openFullscreenCard = async (event: Event) => {
+  if (isCardExpanded.value) return // Prevent multiple opens
+
+  const clickedCard = event.currentTarget as HTMLElement
+  if (!clickedCard) return
+
+  // Identify which card was clicked based on its content
+  let cardId = 'figma' // default
+  
+  const cardText = clickedCard.textContent || ''
+  if (cardText.includes('Spotify')) {
+    cardId = 'spotify'
+  } else if (cardText.includes('Notion')) {
+    cardId = 'notion'
+  } else if (cardText.includes('Instagram')) {
+    cardId = 'instagram'
+  }
+  
+  // Store the selected card data
+  selectedCardData.value = cardData[cardId as keyof typeof cardData]
+
+  // Get the actual bounding rectangle of the clicked card
+  originalRect.value = clickedCard.getBoundingClientRect()
+  
+  // Show backdrop and expanded card
+  isCardExpanded.value = true
+
+  await nextTick()
+
+  if (!expandedCardRef.value || !originalRect.value) return
+
+  // Set initial position to match the clicked card exactly
+  expandedCardStyle.position = 'fixed'
+  expandedCardStyle.top = `${originalRect.value.top}px`
+  expandedCardStyle.left = `${originalRect.value.left}px`
+  expandedCardStyle.width = `${originalRect.value.width}px`
+  expandedCardStyle.height = `${originalRect.value.height}px`
+  expandedCardStyle.transform = 'none'
+  expandedCardStyle.borderRadius = '0.75rem'
+  expandedCardStyle.transition = 'none' // Disable transition for initial positioning
+
+  // Force a reflow to apply initial position
+  expandedCardRef.value.offsetHeight
+
+  // Re-enable smooth transition and animate to fullscreen
+  requestAnimationFrame(() => {
+    expandedCardStyle.transition = 'all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)'
+    expandedCardStyle.top = '0px'
+    expandedCardStyle.left = '0px'
+    expandedCardStyle.width = '100vw'
+    expandedCardStyle.height = '100vh'
+    expandedCardStyle.borderRadius = '0px'
+  })
+
+  // Show close button after animation
+  setTimeout(() => {
+    showCloseButton.value = true
+  }, 500)
+}
+
+const closeFullscreenCard = () => {
+  if (!isCardExpanded.value || !originalRect.value) return
+
+  showCloseButton.value = false
+
+  // Animate back to original position
+  expandedCardStyle.top = `${originalRect.value.top}px`
+  expandedCardStyle.left = `${originalRect.value.left}px`
+  expandedCardStyle.width = `${originalRect.value.width}px`
+  expandedCardStyle.height = `${originalRect.value.height}px`
+  expandedCardStyle.borderRadius = '0.75rem'
+
+  // Clean up after animation
+  setTimeout(() => {
+    isCardExpanded.value = false
+    originalRect.value = null
+  }, 500)
+}
+
+// Handle escape key
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && isCardExpanded.value) {
+    closeFullscreenCard()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown)
+})
 </script>
 
 <template>
@@ -190,9 +374,13 @@ const goToGames = () => {
     </div>
 
     <!-- Main Content - Today -->
-    <div v-if="activeView === 'today'" class="px-4 pb-24">
+    <div v-if="activeView === 'today'" class="px-4 pb-24 space-y-6">
       <!-- Featured App Card -->
-      <div class="relative overflow-hidden rounded-xl shadow-2xl">
+      <div 
+        ref="featuredCardRef"
+        @click="openFullscreenCard"
+        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+      >
         <!-- Hero Image with Rainbow Heart -->
         <div class="relative h-80 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700">
           <!-- Background Pattern -->
@@ -275,6 +463,214 @@ const goToGames = () => {
                 </h3>
                 <p class="text-gray-400 text-sm">
                   Figma Inc.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Get Button -->
+            <button class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full">
+              <span class="text-blue-400 font-bold text-sm tracking-wider">
+                GET
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Card - Spotify -->
+      <div 
+        @click="openFullscreenCard"
+        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+      >
+        <!-- Hero Section -->
+        <div class="relative h-64 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600">
+            <!-- Music waves pattern -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="flex space-x-2">
+                <div class="w-2 h-16 bg-white opacity-30 rounded-full animate-pulse"></div>
+                <div class="w-2 h-24 bg-white opacity-40 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+                <div class="w-2 h-20 bg-white opacity-35 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                <div class="w-2 h-28 bg-white opacity-45 rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+                <div class="w-2 h-18 bg-white opacity-30 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Overlay Text -->
+          <div class="absolute top-4 left-4 z-10">
+            <p class="text-white text-sm font-semibold uppercase tracking-wider opacity-60 mb-1">
+              Music
+            </p>
+            <h2 class="text-white text-2xl font-bold tracking-wide">
+              Spotify
+            </h2>
+          </div>
+        </div>
+
+        <!-- App Details Section -->
+        <div class="bg-gray-800 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <!-- App Icon -->
+              <div class="w-12 h-12 rounded-xl border border-gray-600 overflow-hidden flex-shrink-0 bg-green-500">
+                <div class="w-full h-full bg-green-500 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 17.334c-.25.4-.729.53-1.125.265-3.047-1.87-6.884-2.297-11.4-1.26-.436.098-.89-.234-.988-.67-.1-.436.234-.89.67-.988 4.942-1.133 9.216-.647 12.597 1.453.4.25.53.729.265 1.125z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
+                  Music
+                </p>
+                <h3 class="text-white text-base font-semibold mb-1">
+                  Spotify
+                </h3>
+                <p class="text-gray-400 text-sm">
+                  Spotify AB
+                </p>
+              </div>
+            </div>
+            
+            <!-- Get Button -->
+            <button class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full">
+              <span class="text-blue-400 font-bold text-sm tracking-wider">
+                GET
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Card - Notion -->
+      <div 
+        @click="openFullscreenCard"
+        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+      >
+        <!-- Hero Section -->
+        <div class="relative h-64 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0">
+            <!-- Document/Notes pattern -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="grid grid-cols-3 gap-4 opacity-20">
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-blue-400"></div>
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-green-400"></div>
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-yellow-400"></div>
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-red-400"></div>
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-purple-400"></div>
+                <div class="w-16 h-20 bg-white rounded border-l-4 border-pink-400"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Overlay Text -->
+          <div class="absolute top-4 left-4 z-10">
+            <p class="text-white text-sm font-semibold uppercase tracking-wider opacity-60 mb-1">
+              Productivity
+            </p>
+            <h2 class="text-white text-2xl font-bold tracking-wide">
+              Notion
+            </h2>
+          </div>
+        </div>
+
+        <!-- App Details Section -->
+        <div class="bg-gray-800 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <!-- App Icon -->
+              <div class="w-12 h-12 rounded-xl border border-gray-600 overflow-hidden flex-shrink-0 bg-white">
+                <div class="w-full h-full bg-white flex items-center justify-center">
+                  <div class="w-8 h-8 bg-black rounded text-white text-lg font-bold flex items-center justify-center">
+                    N
+                  </div>
+                </div>
+              </div>
+              
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
+                  Productivity
+                </p>
+                <h3 class="text-white text-base font-semibold mb-1">
+                  Notion
+                </h3>
+                <p class="text-gray-400 text-sm">
+                  Notion Labs, Inc.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Get Button -->
+            <button class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full">
+              <span class="text-blue-400 font-bold text-sm tracking-wider">
+                GET
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fourth Card - Instagram -->
+      <div 
+        @click="openFullscreenCard"
+        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+      >
+        <!-- Hero Section -->
+        <div class="relative h-64 bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0">
+            <!-- Camera/Photo pattern -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-24 h-24 border-4 border-white rounded-xl opacity-30">
+                <div class="w-full h-full flex items-center justify-center">
+                  <div class="w-12 h-12 border-2 border-white rounded-full">
+                    <div class="w-full h-full rounded-full border-2 border-white m-1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Overlay Text -->
+          <div class="absolute top-4 left-4 z-10">
+            <p class="text-white text-sm font-semibold uppercase tracking-wider opacity-60 mb-1">
+              Photo & Video
+            </p>
+            <h2 class="text-white text-2xl font-bold tracking-wide">
+              Instagram
+            </h2>
+          </div>
+        </div>
+
+        <!-- App Details Section -->
+        <div class="bg-gray-800 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <!-- App Icon -->
+              <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                <div class="w-full h-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- App Info -->
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
+                  Photo & Video
+                </p>
+                <h3 class="text-white text-base font-semibold mb-1">
+                  Instagram
+                </h3>
+                <p class="text-gray-400 text-sm">
+                  Instagram, Inc.
                 </p>
               </div>
             </div>
@@ -675,6 +1071,208 @@ const goToGames = () => {
       </div>
     </div>
 
+    <!-- Backdrop -->
+    <div
+      v-if="isCardExpanded"
+      ref="backdropRef"
+      class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 ease-out z-40"
+      :class="{ 'opacity-100 pointer-events-auto': isCardExpanded }"
+      @click="closeFullscreenCard"
+    ></div>
+
+    <!-- Expanded Card -->
+    <div
+      v-if="isCardExpanded && selectedCardData"
+      ref="expandedCardRef"
+      class="expanded-card overflow-y-auto bg-black"
+      :style="expandedCardStyle"
+    >
+      <!-- Dynamic Hero Section -->
+      <div :class="['relative h-64 sm:h-80', selectedCardData.heroBackground]">
+        <!-- Dynamic Background Pattern -->
+        <div class="absolute inset-0">
+          <!-- Figma Rainbow Heart -->
+          <div v-if="selectedCardData.heroPattern === 'rainbow-heart'" class="absolute inset-0 flex items-center justify-center">
+            <div class="relative">
+              <div class="w-48 h-40 relative">
+                <svg viewBox="0 0 100 85" class="w-full h-full">
+                  <defs>
+                    <pattern id="rainbow-expanded" x="0" y="0" width="100%" height="100%" patternUnits="userSpaceOnUse">
+                      <rect x="0" y="0" width="8.33%" height="100%" fill="#8B4513"/>
+                      <rect x="8.33%" y="0" width="8.33%" height="100%" fill="#FF69B4"/>
+                      <rect x="16.66%" y="0" width="8.33%" height="100%" fill="#FF0000"/>
+                      <rect x="25%" y="0" width="8.33%" height="100%" fill="#FF8C00"/>
+                      <rect x="33.33%" y="0" width="8.33%" height="100%" fill="#FFD700"/>
+                      <rect x="41.66%" y="0" width="8.33%" height="100%" fill="#ADFF2F"/>
+                      <rect x="50%" y="0" width="8.33%" height="100%" fill="#00FF00"/>
+                      <rect x="58.33%" y="0" width="8.33%" height="100%" fill="#00CED1"/>
+                      <rect x="66.66%" y="0" width="8.33%" height="100%" fill="#00BFFF"/>
+                      <rect x="75%" y="0" width="8.33%" height="100%" fill="#0000FF"/>
+                      <rect x="83.33%" y="0" width="8.33%" height="100%" fill="#8A2BE2"/>
+                      <rect x="91.66%" y="0" width="8.34%" height="100%" fill="#4B0082"/>
+                    </pattern>
+                  </defs>
+                  <path d="M50,75 C50,75 20,50 20,30 C20,15 30,5 45,15 C50,20 50,20 55,15 C70,5 80,15 80,30 C80,50 50,75 50,75 Z" 
+                        fill="url(#rainbow-expanded)" 
+                        stroke="#333" 
+                        stroke-width="0.5"/>
+                </svg>
+              </div>
+            </div>
+            <!-- Corner Decorations for Figma -->
+            <div class="absolute top-3 left-3 w-8 h-8 border-2 border-white border-r-0 border-b-0 rounded-tl-lg"></div>
+            <div class="absolute top-3 right-3 w-8 h-8 border-2 border-white border-l-0 border-b-0 rounded-tr-lg"></div>
+            <div class="absolute bottom-3 left-3 w-8 h-8 border-2 border-white border-r-0 border-t-0 rounded-bl-lg"></div>
+            <div class="absolute bottom-3 right-3 w-8 h-8 border-2 border-white border-l-0 border-t-0 rounded-br-lg"></div>
+            <!-- Small decorative squares -->
+            <div class="absolute top-8 left-8 w-4 h-3 bg-orange-500 rounded-sm"></div>
+            <div class="absolute top-8 right-8 w-4 h-3 bg-yellow-400 rounded-sm"></div>
+            <div class="absolute bottom-20 left-8 w-4 h-3 bg-red-500 rounded-sm"></div>
+            <div class="absolute bottom-20 right-8 w-4 h-3 bg-blue-500 rounded-sm"></div>
+          </div>
+
+          <!-- Spotify Music Waves -->
+          <div v-else-if="selectedCardData.heroPattern === 'music-waves'" class="absolute inset-0 flex items-center justify-center">
+            <div class="flex space-x-2">
+              <div class="w-2 h-16 bg-white opacity-30 rounded-full animate-pulse"></div>
+              <div class="w-2 h-24 bg-white opacity-40 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+              <div class="w-2 h-20 bg-white opacity-35 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+              <div class="w-2 h-28 bg-white opacity-45 rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+              <div class="w-2 h-18 bg-white opacity-30 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+            </div>
+          </div>
+
+          <!-- Notion Document Grid -->
+          <div v-else-if="selectedCardData.heroPattern === 'document-grid'" class="absolute inset-0 flex items-center justify-center">
+            <div class="grid grid-cols-3 gap-4 opacity-20">
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-blue-400"></div>
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-green-400"></div>
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-yellow-400"></div>
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-red-400"></div>
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-purple-400"></div>
+              <div class="w-16 h-20 bg-white rounded border-l-4 border-pink-400"></div>
+            </div>
+          </div>
+
+          <!-- Instagram Camera -->
+          <div v-else-if="selectedCardData.heroPattern === 'camera'" class="absolute inset-0 flex items-center justify-center">
+            <div class="w-24 h-24 border-4 border-white rounded-xl opacity-30">
+              <div class="w-full h-full flex items-center justify-center">
+                <div class="w-12 h-12 border-2 border-white rounded-full">
+                  <div class="w-full h-full rounded-full border-2 border-white m-1"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Overlay Text -->
+        <div class="absolute top-4 left-4 z-10">
+          <p class="text-white text-sm font-semibold uppercase tracking-wider opacity-60 mb-1">
+            {{ selectedCardData.category }}
+          </p>
+          <h2 class="text-white text-2xl font-bold tracking-wide">
+            {{ selectedCardData.name }}
+          </h2>
+        </div>
+      </div>
+
+      <!-- Expanded Content -->
+      <div class="p-6">
+        <!-- App Info -->
+        <div class="flex items-center space-x-4 mb-6">
+          <!-- Dynamic App Icon -->
+          <div class="w-16 h-16 rounded-2xl border border-gray-600 overflow-hidden flex-shrink-0">
+            <!-- Figma Icon -->
+            <img 
+              v-if="selectedCardData.icon" 
+              :src="selectedCardData.icon" 
+              :alt="selectedCardData.name + ' Icon'" 
+              class="w-full h-full object-cover"
+            />
+            <!-- Spotify Icon -->
+            <div v-else-if="selectedCardData.id === 'spotify'" class="w-full h-full bg-green-500 flex items-center justify-center">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 17.334c-.25.4-.729.53-1.125.265-3.047-1.87-6.884-2.297-11.4-1.26-.436.098-.89-.234-.988-.67-.1-.436.234-.89.67-.988 4.942-1.133 9.216-.647 12.597 1.453.4.25.53.729.265 1.125z"/>
+              </svg>
+            </div>
+            <!-- Notion Icon -->
+            <div v-else-if="selectedCardData.id === 'notion'" class="w-full h-full bg-white flex items-center justify-center">
+              <div class="w-10 h-10 bg-black rounded text-white text-xl font-bold flex items-center justify-center">
+                N
+              </div>
+            </div>
+            <!-- Instagram Icon -->
+            <div v-else-if="selectedCardData.id === 'instagram'" class="w-full h-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="flex-1">
+            <h1 class="text-white text-2xl font-bold mb-1">{{ selectedCardData.name }}</h1>
+            <p class="text-gray-400 text-base mb-2">{{ selectedCardData.developer }}</p>
+            <p class="text-gray-500 text-sm">{{ selectedCardData.description }}</p>
+          </div>
+          
+          <button class="bg-blue-500 hover:bg-blue-600 transition-colors px-6 py-3 rounded-full">
+            <span class="text-white font-bold text-sm tracking-wider">
+              GET
+            </span>
+          </button>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-8">
+          <h3 class="text-white text-lg font-semibold mb-3">About</h3>
+          <p class="text-gray-300 text-base leading-relaxed">
+            {{ selectedCardData.about }}
+          </p>
+        </div>
+
+        <!-- Features -->
+        <div class="mb-8">
+          <h3 class="text-white text-lg font-semibold mb-4">Features</h3>
+          <div class="space-y-3">
+            <div v-for="(feature, index) in selectedCardData.features" :key="index" class="flex items-start space-x-3">
+              <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-white font-medium">{{ feature.title }}</h4>
+                <p class="text-gray-400 text-sm">{{ feature.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="mb-8">
+          <h3 class="text-white text-lg font-semibold mb-4">Screenshots</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <img :src="`https://picsum.photos/300/400?random=${selectedCardData.id}1`" class="w-full h-48 object-cover rounded-lg" :alt="selectedCardData.name + ' Screenshot 1'">
+            <img :src="`https://picsum.photos/300/400?random=${selectedCardData.id}2`" class="w-full h-48 object-cover rounded-lg" :alt="selectedCardData.name + ' Screenshot 2'">
+            <img :src="`https://picsum.photos/300/400?random=${selectedCardData.id}3`" class="w-full h-48 object-cover rounded-lg" :alt="selectedCardData.name + ' Screenshot 3'">
+            <img :src="`https://picsum.photos/300/400?random=${selectedCardData.id}4`" class="w-full h-48 object-cover rounded-lg" :alt="selectedCardData.name + ' Screenshot 4'">
+          </div>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      <button
+        v-if="showCloseButton"
+        @click="closeFullscreenCard"
+        class="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-opacity-70 transition-all duration-200 z-50"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
     <!-- Bottom Navigation -->
     <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 backdrop-blur-lg border-t border-gray-800 max-w-md mx-auto">
       <div class="flex items-center justify-around py-1 sm:py-2">
@@ -745,5 +1343,64 @@ const goToGames = () => {
 <style scoped>
 .font-sans {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
+}
+
+/* Enhanced animations and effects */
+.expanded-card {
+  will-change: transform, top, left, width, height, border-radius;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.expanded-card::-webkit-scrollbar {
+  display: none;
+}
+
+/* Backdrop blur enhancement */
+.backdrop {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Card hover effect enhancement */
+.card:hover {
+  transform: scale(1.02) translateZ(0);
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Enhanced backdrop animation */
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes backdrop-fade-out {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+}
+
+/* Apply hardware acceleration */
+.expanded-card,
+.backdrop {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 </style>
