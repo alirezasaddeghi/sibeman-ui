@@ -418,6 +418,153 @@ const goToGames = () => {
       </div>
     </div>
 
+    <!-- Main Content - Apps -->
+    <div v-if="activeView === 'apps'" class="px-4 pb-24">
+      <!-- Editor's Choice Section -->
+      <div class="mb-2">
+        <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-4">
+          Editor's Choice
+        </p>
+
+        <!-- Featured App Card - Lambus Travel Planner -->
+        <div class="relative overflow-hidden rounded-xl">
+          <!-- Background Image -->
+          <div class="relative h-80 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+            <!-- Green landscape background -->
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/58fef74e4fa5c6e23742f85ead0265abea71a4cb?width=2092"
+              alt="Landscape Background"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+            <!-- App Info Overlay -->
+            <div class="absolute top-6 left-6 z-10">
+              <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-2">
+                Editor's Choice
+              </p>
+              <h2 class="text-white text-3xl font-bold mb-2">
+                Lambus | Travel Planner
+              </h2>
+              <p class="text-gray-300 text-lg">
+                Everything is under control
+              </p>
+            </div>
+          </div>
+
+          <!-- App Details Section -->
+          <div class="bg-black/80 backdrop-blur-md p-4 absolute bottom-0 left-0 right-0">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <!-- App Icon -->
+                <div class="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0">
+                  <img
+                    src="https://api.builder.io/api/v1/image/assets/TEMP/994a65d017f226502fe498f79ba91e9ba2fc7c06?width=225"
+                    alt="Lambus Travel Planner Icon"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+
+                <!-- App Info -->
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-white text-lg font-semibold mb-1">
+                    Lambus | Travel Planner
+                  </h3>
+                  <p class="text-gray-300 text-sm">
+                    The All-in-One travel planner
+                  </p>
+                </div>
+              </div>
+
+              <!-- Get Button -->
+              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-6 py-3 rounded-full">
+                <span class="text-white font-bold text-sm tracking-wider uppercase">
+                  Get
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content - Games -->
+    <div v-if="activeView === 'games'" class="px-4 pb-24">
+      <!-- App List -->
+      <div class="space-y-6">
+        <!-- App 1 -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <!-- App Icon Placeholder -->
+            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+
+            <!-- App Info -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
+              <p class="text-gray-400 text-sm">Description</p>
+            </div>
+          </div>
+
+          <!-- Open Button -->
+          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
+            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+              Open
+            </span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-white/20"></div>
+
+        <!-- App 2 -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <!-- App Icon Placeholder -->
+            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+
+            <!-- App Info -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
+              <p class="text-gray-400 text-sm">Description</p>
+            </div>
+          </div>
+
+          <!-- Open Button -->
+          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
+            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+              Open
+            </span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-white/20"></div>
+
+        <!-- App 3 -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <!-- App Icon Placeholder -->
+            <div class="w-12 h-12 rounded-lg bg-gray-600 flex-shrink-0"></div>
+
+            <!-- App Info -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white text-lg font-medium mb-1">App Name</h3>
+              <p class="text-gray-400 text-sm">Description</p>
+            </div>
+          </div>
+
+          <!-- Open Button -->
+          <button class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full">
+            <span class="text-blue-400 font-bold text-sm tracking-wider uppercase">
+              Open
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Content - App Detail -->
     <div v-if="activeView === 'appDetail'" class="px-4 pb-24 bg-black">
       <!-- App Header -->
