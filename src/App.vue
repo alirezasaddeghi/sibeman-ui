@@ -688,10 +688,10 @@ const goToGames = () => {
         </button>
 
         <!-- Games Tab -->
-        <button 
+        <button
           class="flex flex-col items-center py-2 px-4"
           :class="activeTab === 'games' ? 'text-blue-400' : 'text-gray-400'"
-          @click="activeTab = 'games'"
+          @click="goToGames()"
         >
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z"/>
@@ -700,10 +700,10 @@ const goToGames = () => {
         </button>
 
         <!-- Apps Tab -->
-        <button 
+        <button
           class="flex flex-col items-center py-2 px-4"
           :class="activeTab === 'apps' ? 'text-blue-400' : 'text-gray-400'"
-          @click="activeTab = 'apps'"
+          @click="goToApps()"
         >
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6,8A2,2 0 0,1 4,6A2,2 0 0,1 6,4A2,2 0 0,1 8,6A2,2 0 0,1 6,8M6,20A2,2 0 0,1 4,18A2,2 0 0,1 6,16A2,2 0 0,1 8,18A2,2 0 0,1 6,20M12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,8A2,2 0 0,1 16,6A2,2 0 0,1 18,4A2,2 0 0,1 20,6A2,2 0 0,1 18,8M18,20A2,2 0 0,1 16,18A2,2 0 0,1 18,16A2,2 0 0,1 20,18A2,2 0 0,1 18,20M12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14Z"/>
