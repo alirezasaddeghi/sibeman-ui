@@ -429,7 +429,7 @@ const goToGames = () => {
         <!-- Featured App Card - Lambus Travel Planner -->
         <div class="relative overflow-hidden rounded-xl">
           <!-- Background Image -->
-          <div class="relative h-80 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+          <div class="relative h-64 sm:h-80 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
             <!-- Green landscape background -->
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/58fef74e4fa5c6e23742f85ead0265abea71a4cb?width=2092"
@@ -441,14 +441,14 @@ const goToGames = () => {
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
             <!-- App Info Overlay -->
-            <div class="absolute top-6 left-6 z-10">
-              <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-2">
+            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 max-w-xs sm:max-w-sm">
+              <p class="text-blue-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1 sm:mb-2">
                 Editor's Choice
               </p>
-              <h2 class="text-white text-3xl font-bold mb-2">
+              <h2 class="text-white text-2xl sm:text-3xl font-bold mb-1 sm:mb-2 leading-tight">
                 Lambus | Travel Planner
               </h2>
-              <p class="text-gray-300 text-lg">
+              <p class="text-gray-300 text-base sm:text-lg">
                 Everything is under control
               </p>
             </div>
