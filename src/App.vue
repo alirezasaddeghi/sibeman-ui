@@ -37,8 +37,8 @@ const expandedCardStyle = reactive({
   left: '0px',
   width: '0px',
   height: '0px',
-  transform: 'none',
-  transition: 'all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)',
+  transform: 'translateZ(0)',
+  transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
   borderRadius: '1rem',
   zIndex: '50'
 })
@@ -187,7 +187,7 @@ const openFullscreenCard = async (event: Event) => {
 
   // Re-enable smooth transition and animate to fullscreen
   requestAnimationFrame(() => {
-    expandedCardStyle.transition = 'all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)'
+    expandedCardStyle.transition = 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
     expandedCardStyle.top = '0px'
     expandedCardStyle.left = '0px'
     expandedCardStyle.width = '100vw'
@@ -198,7 +198,7 @@ const openFullscreenCard = async (event: Event) => {
   // Show close button after animation
   setTimeout(() => {
     showCloseButton.value = true
-  }, 500)
+  }, 250)
 }
 
 const closeFullscreenCard = () => {
@@ -217,7 +217,7 @@ const closeFullscreenCard = () => {
   setTimeout(() => {
     isCardExpanded.value = false
     originalRect.value = null
-  }, 500)
+  }, 250)
 }
 
 // Handle escape key
@@ -379,7 +379,7 @@ onUnmounted(() => {
       <div 
         ref="featuredCardRef"
         @click="openFullscreenCard"
-        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+        class="app-card relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-3xl hover:-translate-y-1"
       >
         <!-- Hero Image with Rainbow Heart -->
         <div class="relative h-80 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700">
@@ -480,7 +480,7 @@ onUnmounted(() => {
       <!-- Second Card - Spotify -->
       <div 
         @click="openFullscreenCard"
-        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+        class="app-card relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-3xl hover:-translate-y-1"
       >
         <!-- Hero Section -->
         <div class="relative h-64 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
@@ -549,7 +549,7 @@ onUnmounted(() => {
       <!-- Third Card - Notion -->
       <div 
         @click="openFullscreenCard"
-        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+        class="app-card relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-3xl hover:-translate-y-1"
       >
         <!-- Hero Section -->
         <div class="relative h-64 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900">
@@ -619,7 +619,7 @@ onUnmounted(() => {
       <!-- Fourth Card - Instagram -->
       <div 
         @click="openFullscreenCard"
-        class="relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+        class="app-card relative overflow-hidden rounded-xl shadow-2xl cursor-pointer transform transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-3xl hover:-translate-y-1"
       >
         <!-- Hero Section -->
         <div class="relative h-64 bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500">
@@ -1345,43 +1345,92 @@ onUnmounted(() => {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
 }
 
-/* Enhanced animations and effects */
+/* Enhanced animations and effects with hardware acceleration */
 .expanded-card {
   will-change: transform, top, left, width, height, border-radius;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .expanded-card::-webkit-scrollbar {
   display: none;
 }
 
-/* Backdrop blur enhancement */
+/* App card optimizations with micro-interactions */
+.app-card {
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 0.75rem;
+}
+
+.app-card:hover {
+  transform: scale3d(1.03, 1.03, 1) translateZ(0) translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.app-card:active {
+  transform: scale3d(0.98, 0.98, 1) translateZ(0) translateY(-2px);
+  transition-duration: 0.15s;
+}
+
+/* Button micro-interactions */
+button {
+  transform: translateZ(0);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+button:hover {
+  transform: translateZ(0) scale(1.05);
+}
+
+button:active {
+  transform: translateZ(0) scale(0.95);
+  transition-duration: 0.1s;
+}
+
+/* Backdrop blur enhancement with better performance */
 .backdrop {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-}
-
-/* Card hover effect enhancement */
-.card:hover {
-  transform: scale(1.02) translateZ(0);
+  transform: translateZ(0);
+  will-change: opacity, backdrop-filter;
 }
 
 /* Smooth transitions for all interactive elements */
 .transition-all {
   transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Enhanced backdrop animation */
+/* Enhanced micro-animations */
+@keyframes gentle-bounce {
+  0% {
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    transform: translateZ(0) scale(1.02);
+  }
+  100% {
+    transform: translateZ(0) scale(1);
+  }
+}
+
 @keyframes backdrop-fade-in {
   from {
     opacity: 0;
     backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }
 
@@ -1389,18 +1438,36 @@ onUnmounted(() => {
   from {
     opacity: 1;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   to {
     opacity: 0;
     backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
   }
 }
 
-/* Apply hardware acceleration */
+/* Apply hardware acceleration to all animated elements */
 .expanded-card,
-.backdrop {
+.backdrop,
+.app-card,
+button {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize rendering layers */
+.app-card:hover,
+.expanded-card,
+.backdrop {
+  will-change: transform;
+}
+
+/* Remove will-change after animations to save memory */
+.app-card:not(:hover) {
+  will-change: auto;
 }
 </style>
