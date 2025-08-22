@@ -237,7 +237,26 @@ const goToToday = () => {
           </div>
 
           <!-- Get Button -->
-          <button class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full">
+          <button
+            @click="openAppDetail({
+              name: 'Figma',
+              developer: 'Figma Inc.',
+              category: 'Utilities',
+              icon: 'https://api.builder.io/api/v1/image/assets/TEMP/13552704def85846e213c39a12291cc8d162177b?width=228',
+              rating: 4,
+              ratingCount: '4,3K',
+              age: '4+',
+              screenshots: [
+                'https://api.builder.io/api/v1/image/assets/TEMP/da1b1cd6ed043ac2803c846ab9ef87acf383c778?width=442',
+                'https://api.builder.io/api/v1/image/assets/TEMP/bd7bf5590c30903d2058d5667a6c57fbc924a038?width=442'
+              ],
+              features: [
+                'See Figma designs and updates in real-time on any device',
+                'Works over any internet connection on any number of devices'
+              ]
+            })"
+            class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full"
+          >
             <span class="text-blue-400 font-bold text-sm tracking-wider">
               GET
             </span>
