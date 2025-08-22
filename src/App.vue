@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 
 const activeTab = ref('today')
+const searchQuery = ref('figma')
 </script>
 
 <template>
   <div class="min-h-screen bg-black text-white font-sans overflow-hidden">
-    <!-- Top Bar -->
-    <div class="pt-16 pb-6 px-4">
+    <!-- Top Bar - Today -->
+    <div v-if="activeTab === 'today'" class="pt-16 pb-6 px-4">
       <div class="flex items-center justify-between mb-2">
         <div>
           <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
@@ -23,8 +24,42 @@ const activeTab = ref('today')
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="px-4 pb-24">
+    <!-- Top Bar - Search -->
+    <div v-if="activeTab === 'search'" class="bg-gray-900 border-b border-gray-800">
+      <div class="pt-12 pb-4 px-4">
+        <div class="flex items-center gap-3">
+          <!-- Search Input -->
+          <div class="flex-1 relative">
+            <div class="bg-gray-700 rounded-lg px-4 py-2 flex items-center">
+              <svg class="w-4 h-4 text-gray-400 mr-3" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M6.3833 12.8767C7.76953 12.8767 9.04785 12.4285 10.0938 11.6814L14.0283 15.616C14.2109 15.7986 14.4517 15.8899 14.709 15.8899C15.2485 15.8899 15.6304 15.4749 15.6304 14.9436C15.6304 14.6946 15.5474 14.4539 15.3647 14.2795L11.4551 10.3616C12.2769 9.28247 12.7666 7.94604 12.7666 6.49341C12.7666 2.98218 9.89453 0.110107 6.3833 0.110107C2.88037 0.110107 0 2.97388 0 6.49341C0 10.0046 2.87207 12.8767 6.3833 12.8767ZM6.3833 11.4988C3.64404 11.4988 1.37793 9.23267 1.37793 6.49341C1.37793 3.75415 3.64404 1.48804 6.3833 1.48804C9.12256 1.48804 11.3887 3.75415 11.3887 6.49341C11.3887 9.23267 9.12256 11.4988 6.3833 11.4988Z"/>
+              </svg>
+              <input
+                v-model="searchQuery"
+                type="text"
+                class="bg-transparent text-gray-100 flex-1 outline-none text-base"
+                placeholder="Search"
+              />
+              <button v-if="searchQuery" @click="searchQuery = ''" class="ml-2 text-gray-400">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- Cancel Button -->
+          <button
+            @click="activeTab = 'today'"
+            class="text-blue-400 font-medium text-base px-2"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content - Today -->
+    <div v-if="activeTab === 'today'" class="px-4 pb-24">
       <!-- Featured App Card -->
       <div class="relative overflow-hidden rounded-xl shadow-2xl">
         <!-- Hero Image with Rainbow Heart -->
