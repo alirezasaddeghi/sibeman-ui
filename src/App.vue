@@ -45,7 +45,7 @@ const goToToday = () => {
 <template>
   <div class="min-h-screen bg-black text-white font-sans overflow-hidden">
     <!-- Top Bar - Today -->
-    <div v-if="activeTab === 'today'" class="pt-16 pb-6 px-4">
+    <div v-if="activeView === 'today'" class="pt-16 pb-6 px-4">
       <div class="flex items-center justify-between mb-2">
         <div>
           <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
