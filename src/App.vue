@@ -2,7 +2,44 @@
 import { ref } from 'vue'
 
 const activeTab = ref('today')
+const activeView = ref('today') // 'today', 'search', 'appDetail'
 const searchQuery = ref('figma')
+const selectedApp = ref({
+  name: 'Figma',
+  developer: 'Figma Inc.',
+  category: 'Utilities',
+  icon: 'https://api.builder.io/api/v1/image/assets/TEMP/13552704def85846e213c39a12291cc8d162177b?width=228',
+  rating: 4,
+  ratingCount: '4,3K',
+  age: '4+',
+  screenshots: [
+    'https://api.builder.io/api/v1/image/assets/TEMP/da1b1cd6ed043ac2803c846ab9ef87acf383c778?width=442',
+    'https://api.builder.io/api/v1/image/assets/TEMP/bd7bf5590c30903d2058d5667a6c57fbc924a038?width=442'
+  ],
+  features: [
+    'See Figma designs and updates in real-time on any device',
+    'Works over any internet connection on any number of devices'
+  ]
+})
+
+const openAppDetail = (app: any) => {
+  selectedApp.value = app
+  activeView.value = 'appDetail'
+}
+
+const goBackToSearch = () => {
+  activeView.value = 'search'
+}
+
+const goToSearch = () => {
+  activeTab.value = 'search'
+  activeView.value = 'search'
+}
+
+const goToToday = () => {
+  activeTab.value = 'today'
+  activeView.value = 'today'
+}
 </script>
 
 <template>
