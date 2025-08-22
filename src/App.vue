@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const activeTab = ref('today')
-const activeView = ref('today') // 'today', 'search', 'appDetail'
+const activeView = ref('today') // 'today', 'search', 'appDetail', 'apps', 'games'
 const searchQuery = ref('')
 const selectedApp = ref({
   name: 'Figma',
@@ -40,10 +40,20 @@ const goToToday = () => {
   activeTab.value = 'today'
   activeView.value = 'today'
 }
+
+const goToApps = () => {
+  activeTab.value = 'apps'
+  activeView.value = 'apps'
+}
+
+const goToGames = () => {
+  activeTab.value = 'games'
+  activeView.value = 'games'
+}
 </script>
 
 <template>
-  <div class="min-h-screen bg-black text-white font-sans overflow-hidden">
+  <div class="min-h-screen bg-black text-white font-sans overflow-hidden max-w-md mx-auto relative">
     <!-- Top Bar - Today -->
     <div v-if="activeView === 'today'" class="pt-16 pb-6 px-4">
       <div class="flex items-center justify-between mb-2">
@@ -103,6 +113,80 @@ const goToToday = () => {
         </svg>
         <span class="text-base font-medium">Search</span>
       </button>
+    </div>
+
+    <!-- Status Bar & Header - Apps -->
+    <div v-if="activeView === 'apps'" class="pt-4 pb-6 px-4">
+      <!-- Status Bar -->
+      <div class="flex items-center justify-between mb-8 pt-8">
+        <div class="text-white text-lg font-semibold">09:41</div>
+        <div class="flex items-center space-x-1">
+          <!-- Signal bars -->
+          <div class="flex space-x-1">
+            <div class="w-1 h-3 bg-white rounded-sm"></div>
+            <div class="w-1 h-4 bg-white rounded-sm"></div>
+            <div class="w-1 h-5 bg-white rounded-sm"></div>
+          </div>
+          <!-- WiFi icon -->
+          <svg class="w-4 h-4 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+          </svg>
+          <!-- Battery icon -->
+          <svg class="w-6 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 12">
+            <rect x="1" y="2" width="18" height="8" rx="2" stroke="currentColor" stroke-width="1" fill="currentColor"/>
+            <rect x="20" y="4" width="2" height="4" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Apps Title and Profile -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-white text-3xl sm:text-4xl font-bold">Apps</h1>
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-600">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/82f04836e7e580c8090ce92382c2404b75767102?width=250"
+            alt="Profile"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar & Header - Games -->
+    <div v-if="activeView === 'games'" class="pt-4 pb-6 px-4">
+      <!-- Status Bar -->
+      <div class="flex items-center justify-between mb-8 pt-8">
+        <div class="text-white text-lg font-semibold">09:41</div>
+        <div class="flex items-center space-x-1">
+          <!-- Signal bars -->
+          <div class="flex space-x-1">
+            <div class="w-1 h-3 bg-white rounded-sm"></div>
+            <div class="w-1 h-4 bg-white rounded-sm"></div>
+            <div class="w-1 h-5 bg-white rounded-sm"></div>
+          </div>
+          <!-- WiFi icon -->
+          <svg class="w-4 h-4 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+          </svg>
+          <!-- Battery icon -->
+          <svg class="w-6 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 12">
+            <rect x="1" y="2" width="18" height="8" rx="2" stroke="currentColor" stroke-width="1" fill="currentColor"/>
+            <rect x="20" y="4" width="2" height="4" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Apps Title and Profile -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-white text-3xl sm:text-4xl font-bold">Apps</h1>
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-600">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/82f04836e7e580c8090ce92382c2404b75767102?width=250"
+            alt="Profile"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
     </div>
 
     <!-- Main Content - Today -->
@@ -340,6 +424,150 @@ const goToToday = () => {
       </div>
     </div>
 
+    <!-- Main Content - Apps -->
+    <div v-if="activeView === 'apps'" class="px-4 pb-24">
+      <!-- Editor's Choice Section -->
+      <div class="mb-2">
+        <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-4">
+          Editor's Choice
+        </p>
+
+        <!-- Featured App Card - Lambus Travel Planner -->
+        <div class="relative overflow-hidden rounded-xl">
+          <!-- Background Image -->
+          <div class="relative h-64 sm:h-80 bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+            <!-- Green landscape background -->
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/58fef74e4fa5c6e23742f85ead0265abea71a4cb?width=2092"
+              alt="Landscape Background"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+            <!-- App Info Overlay -->
+            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 max-w-xs sm:max-w-sm">
+              <p class="text-blue-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1 sm:mb-2">
+                Editor's Choice
+              </p>
+              <h2 class="text-white text-2xl sm:text-3xl font-bold mb-1 sm:mb-2 leading-tight">
+                Lambus | Travel Planner
+              </h2>
+              <p class="text-gray-300 text-base sm:text-lg">
+                Everything is under control
+              </p>
+            </div>
+          </div>
+
+          <!-- App Details Section -->
+          <div class="bg-black/80 backdrop-blur-md p-3 sm:p-4 absolute bottom-0 left-0 right-0">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+                <!-- App Icon -->
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl overflow-hidden flex-shrink-0">
+                  <img
+                    src="https://api.builder.io/api/v1/image/assets/TEMP/994a65d017f226502fe498f79ba91e9ba2fc7c06?width=225"
+                    alt="Lambus Travel Planner Icon"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+
+                <!-- App Info -->
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-white text-base sm:text-lg font-semibold mb-1 truncate">
+                    Lambus | Travel Planner
+                  </h3>
+                  <p class="text-gray-300 text-xs sm:text-sm truncate">
+                    The All-in-One travel planner
+                  </p>
+                </div>
+              </div>
+
+              <!-- Get Button -->
+              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-4 sm:px-6 py-2 sm:py-3 rounded-full flex-shrink-0">
+                <span class="text-white font-bold text-xs sm:text-sm tracking-wider uppercase">
+                  Get
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content - Games -->
+    <div v-if="activeView === 'games'" class="px-4 pb-24">
+      <!-- Editor's Choice Section -->
+      <div class="mb-2">
+        <p class="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-4">
+          Editor's Choice
+        </p>
+
+        <!-- Featured Game Card - Space Pirates -->
+        <div class="relative overflow-hidden rounded-xl">
+          <!-- Background Image -->
+          <div class="relative h-64 sm:h-80 bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600">
+            <!-- Space/Game background -->
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/58fef74e4fa5c6e23742f85ead0265abea71a4cb?width=2092"
+              alt="Space Background"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+            <!-- Game Info Overlay -->
+            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 max-w-xs sm:max-w-sm">
+              <p class="text-blue-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1 sm:mb-2">
+                Editor's Choice
+              </p>
+              <h2 class="text-white text-2xl sm:text-3xl font-bold mb-1 sm:mb-2 leading-tight">
+                Space Pirates
+              </h2>
+              <p class="text-gray-300 text-base sm:text-lg">
+                Join the intergalactic battle
+              </p>
+            </div>
+          </div>
+
+          <!-- Game Details Section -->
+          <div class="bg-black/80 backdrop-blur-md p-3 sm:p-4 absolute bottom-0 left-0 right-0">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+                <!-- Game Icon -->
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl overflow-hidden flex-shrink-0">
+                  <img
+                    src="https://api.builder.io/api/v1/image/assets/TEMP/994a65d017f226502fe498f79ba91e9ba2fc7c06?width=225"
+                    alt="Space Pirates Icon"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+
+                <!-- Game Info -->
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-white text-base sm:text-lg font-semibold mb-1 truncate">
+                    Space Pirates
+                  </h3>
+                  <p class="text-gray-300 text-xs sm:text-sm truncate">
+                    Join the intergalactic battle
+                  </p>
+                </div>
+              </div>
+
+              <!-- Get Button -->
+              <button class="bg-gray-600/75 backdrop-blur-sm hover:bg-gray-500/75 transition-colors px-4 sm:px-6 py-2 sm:py-3 rounded-full flex-shrink-0">
+                <span class="text-white font-bold text-xs sm:text-sm tracking-wider uppercase">
+                  Get
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Content - App Detail -->
     <div v-if="activeView === 'appDetail'" class="px-4 pb-24 bg-black">
       <!-- App Header -->
@@ -448,51 +676,51 @@ const goToToday = () => {
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 backdrop-blur-lg border-t border-gray-800">
-      <div class="flex items-center justify-around py-2">
+    <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 backdrop-blur-lg border-t border-gray-800 max-w-md mx-auto">
+      <div class="flex items-center justify-around py-1 sm:py-2">
         <!-- Today Tab -->
         <button
-          class="flex flex-col items-center py-2 px-4"
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'today' ? 'text-blue-400' : 'text-gray-400'"
           @click="goToToday()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
           </svg>
           <span class="text-xs font-medium">Today</span>
         </button>
 
         <!-- Games Tab -->
-        <button 
-          class="flex flex-col items-center py-2 px-4"
+        <button
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'games' ? 'text-blue-400' : 'text-gray-400'"
-          @click="activeTab = 'games'"
+          @click="goToGames()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z"/>
           </svg>
           <span class="text-xs font-medium">Games</span>
         </button>
 
         <!-- Apps Tab -->
-        <button 
-          class="flex flex-col items-center py-2 px-4"
+        <button
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'apps' ? 'text-blue-400' : 'text-gray-400'"
-          @click="activeTab = 'apps'"
+          @click="goToApps()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6,8A2,2 0 0,1 4,6A2,2 0 0,1 6,4A2,2 0 0,1 8,6A2,2 0 0,1 6,8M6,20A2,2 0 0,1 4,18A2,2 0 0,1 6,16A2,2 0 0,1 8,18A2,2 0 0,1 6,20M12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,8A2,2 0 0,1 16,6A2,2 0 0,1 18,4A2,2 0 0,1 20,6A2,2 0 0,1 18,8M18,20A2,2 0 0,1 16,18A2,2 0 0,1 18,16A2,2 0 0,1 20,18A2,2 0 0,1 18,20M12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14Z"/>
           </svg>
           <span class="text-xs font-medium">Apps</span>
         </button>
 
         <!-- Arcade Tab -->
-        <button 
-          class="flex flex-col items-center py-2 px-4"
+        <button
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'arcade' ? 'text-blue-400' : 'text-gray-400'"
           @click="activeTab = 'arcade'"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,15A1.5,1.5 0 0,1 13,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,13.5A1.5,1.5 0 0,1 14.5,15M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M6.5,10L8,8.5L9.5,10L8,11.5L6.5,10Z"/>
           </svg>
           <span class="text-xs font-medium">Arcade</span>
@@ -500,11 +728,11 @@ const goToToday = () => {
 
         <!-- Search Tab -->
         <button
-          class="flex flex-col items-center py-2 px-4"
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'search' ? 'text-blue-400' : 'text-gray-400'"
           @click="goToSearch()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
           </svg>
           <span class="text-xs font-medium">Search</span>
