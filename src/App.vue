@@ -207,7 +207,7 @@ const goToToday = () => {
     </div>
 
     <!-- Main Content - Search -->
-    <div v-if="activeTab === 'search'" class="px-4 pb-24 bg-black">
+    <div v-if="activeView === 'search'" class="px-4 pb-24 bg-black">
       <!-- Figma App Result -->
       <div class="mb-8">
         <!-- App Info -->
