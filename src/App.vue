@@ -340,6 +340,113 @@ const goToToday = () => {
       </div>
     </div>
 
+    <!-- Main Content - App Detail -->
+    <div v-if="activeView === 'appDetail'" class="px-4 pb-24 bg-black">
+      <!-- App Header -->
+      <div class="flex items-start space-x-4 mb-6">
+        <!-- Large App Icon -->
+        <div class="w-28 h-28 rounded-3xl border border-gray-600 overflow-hidden flex-shrink-0">
+          <img
+            :src="selectedApp.icon"
+            :alt="selectedApp.name + ' Icon'"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- App Info -->
+        <div class="flex-1 pt-2">
+          <h1 class="text-white text-xl font-semibold mb-1">{{ selectedApp.name }}</h1>
+          <p class="text-gray-400 text-base mb-4">{{ selectedApp.developer }}</p>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center space-x-3">
+            <button class="bg-blue-500 hover:bg-blue-600 transition-colors px-6 py-2 rounded-2xl">
+              <span class="text-white font-semibold text-base">
+                GET
+              </span>
+            </button>
+            <button class="text-blue-400 text-xl">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Stats -->
+      <div class="border-t border-gray-700 pt-4 mb-6">
+        <div class="flex justify-around">
+          <!-- Ratings -->
+          <div class="text-center">
+            <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">{{ selectedApp.ratingCount }} RATINGS</p>
+            <div class="text-gray-400 text-xl font-semibold mb-1">{{ selectedApp.rating }}</div>
+            <div class="flex items-center justify-center">
+              <span class="text-gray-400 text-sm">★★★★☆</span>
+            </div>
+          </div>
+
+          <!-- Separator -->
+          <div class="w-px bg-gray-600 h-12 self-center"></div>
+
+          <!-- Age -->
+          <div class="text-center">
+            <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">AGE</p>
+            <div class="text-gray-400 text-xl font-semibold mb-1">{{ selectedApp.age }}</div>
+            <p class="text-gray-500 text-sm">Years Old</p>
+          </div>
+
+          <!-- Separator -->
+          <div class="w-px bg-gray-600 h-12 self-center"></div>
+
+          <!-- Category -->
+          <div class="text-center">
+            <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">CATEGORY</p>
+            <div class="text-gray-400 text-xl mb-1">
+              <svg class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+              </svg>
+            </div>
+            <p class="text-gray-500 text-sm">{{ selectedApp.category }}</p>
+          </div>
+
+          <!-- Separator -->
+          <div class="w-px bg-gray-600 h-12 self-center"></div>
+
+          <!-- Developer -->
+          <div class="text-center">
+            <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">DEVELOPER</p>
+            <div class="text-gray-400 text-xl mb-1">
+              <svg class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <p class="text-gray-500 text-sm">{{ selectedApp.developer }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Descriptions -->
+      <div class="mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div v-for="(feature, index) in selectedApp.features" :key="index">
+            <p class="text-gray-300 text-sm leading-relaxed">{{ feature }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshots Gallery -->
+      <div class="flex space-x-2 overflow-x-auto pb-4">
+        <img
+          v-for="(screenshot, index) in selectedApp.screenshots"
+          :key="index"
+          :src="screenshot"
+          :alt="selectedApp.name + ' Screenshot ' + (index + 1)"
+          class="w-56 h-96 rounded-3xl flex-shrink-0 object-cover"
+        />
+      </div>
+    </div>
+
     <!-- Bottom Navigation -->
     <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 backdrop-blur-lg border-t border-gray-800">
       <div class="flex items-center justify-around py-2">
