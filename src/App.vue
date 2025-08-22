@@ -53,7 +53,7 @@ const goToGames = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-black text-white font-sans overflow-hidden">
+  <div class="min-h-screen bg-black text-white font-sans overflow-hidden max-w-md mx-auto relative">
     <!-- Top Bar - Today -->
     <div v-if="activeView === 'today'" class="pt-16 pb-6 px-4">
       <div class="flex items-center justify-between mb-2">
