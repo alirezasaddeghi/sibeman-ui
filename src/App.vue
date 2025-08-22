@@ -141,8 +141,8 @@ const goToGames = () => {
 
       <!-- Apps Title and Profile -->
       <div class="flex items-center justify-between mb-6">
-        <h1 class="text-white text-4xl font-bold">Apps</h1>
-        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-600">
+        <h1 class="text-white text-3xl sm:text-4xl font-bold">Apps</h1>
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-600">
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/82f04836e7e580c8090ce92382c2404b75767102?width=250"
             alt="Profile"
