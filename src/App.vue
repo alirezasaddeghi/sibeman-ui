@@ -115,6 +115,74 @@ const goToGames = () => {
       </button>
     </div>
 
+    <!-- Status Bar & Header - Apps -->
+    <div v-if="activeView === 'apps'" class="pt-4 pb-6 px-4">
+      <!-- Status Bar -->
+      <div class="flex items-center justify-between mb-8 pt-8">
+        <div class="text-white text-lg font-semibold">09:41</div>
+        <div class="flex items-center space-x-1">
+          <!-- Signal bars -->
+          <div class="flex space-x-1">
+            <div class="w-1 h-3 bg-white rounded-sm"></div>
+            <div class="w-1 h-4 bg-white rounded-sm"></div>
+            <div class="w-1 h-5 bg-white rounded-sm"></div>
+          </div>
+          <!-- WiFi icon -->
+          <svg class="w-4 h-4 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+          </svg>
+          <!-- Battery icon -->
+          <svg class="w-6 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 12">
+            <rect x="1" y="2" width="18" height="8" rx="2" stroke="currentColor" stroke-width="1" fill="currentColor"/>
+            <rect x="20" y="4" width="2" height="4" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Apps Title and Profile -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-white text-4xl font-bold">Apps</h1>
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-600">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/82f04836e7e580c8090ce92382c2404b75767102?width=250"
+            alt="Profile"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar & Header - Games -->
+    <div v-if="activeView === 'games'" class="pt-4 pb-6 px-4">
+      <!-- Status Bar -->
+      <div class="flex items-center justify-between mb-8 pt-8">
+        <div class="text-white text-lg font-semibold">09:41</div>
+        <div class="flex items-center space-x-1">
+          <!-- Signal bars -->
+          <div class="flex space-x-1">
+            <div class="w-1 h-3 bg-white rounded-sm"></div>
+            <div class="w-1 h-4 bg-white rounded-sm"></div>
+            <div class="w-1 h-5 bg-white rounded-sm"></div>
+          </div>
+          <!-- WiFi icon -->
+          <svg class="w-4 h-4 text-white ml-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+          </svg>
+          <!-- Battery icon -->
+          <svg class="w-6 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 12">
+            <rect x="1" y="2" width="18" height="8" rx="2" stroke="currentColor" stroke-width="1" fill="currentColor"/>
+            <rect x="20" y="4" width="2" height="4" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- What to Play This Week Header -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-white text-3xl font-bold">What to Play This Week</h1>
+        <button class="text-blue-400 text-lg font-medium">See All</button>
+      </div>
+    </div>
+
     <!-- Main Content - Today -->
     <div v-if="activeView === 'today'" class="px-4 pb-24">
       <!-- Featured App Card -->
