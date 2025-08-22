@@ -159,6 +159,121 @@ const searchQuery = ref('figma')
       </div>
     </div>
 
+    <!-- Main Content - Search -->
+    <div v-if="activeTab === 'search'" class="px-4 pb-24 bg-black">
+      <!-- Figma App Result -->
+      <div class="mb-8">
+        <!-- App Info -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-4">
+            <!-- App Icon -->
+            <div class="w-15 h-15 rounded-xl border border-gray-600 overflow-hidden flex-shrink-0">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/39ae04fdd27899cbbaf3181816d897ad3301e9fe?width=120"
+                alt="Figma Icon"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- App Details -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white text-base font-medium mb-1">Figma</h3>
+              <p class="text-gray-400 text-sm mb-1">Utilities</p>
+              <div class="flex items-center space-x-2">
+                <!-- Star Rating -->
+                <div class="flex items-center">
+                  <span class="text-gray-400 text-xs">★★★★☆</span>
+                </div>
+                <span class="text-gray-400 text-xs">4,3K</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Button -->
+          <button class="bg-gray-700 hover:bg-gray-600 transition-colors px-6 py-2 rounded-full">
+            <span class="text-blue-400 font-bold text-sm tracking-wider">
+              GET
+            </span>
+          </button>
+        </div>
+
+        <!-- App Screenshots -->
+        <div class="flex space-x-2 overflow-x-auto pb-2">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/a333930f8c915decb6e0247189fc34b3e1b3d7c4?width=214"
+            alt="Figma Screenshot 1"
+            class="w-24 h-52 rounded-xl border border-gray-700 flex-shrink-0 object-cover"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/c008fc28d45250bf1a481fd96142843589705843?width=214"
+            alt="Figma Screenshot 2"
+            class="w-24 h-52 rounded-xl border border-gray-700 flex-shrink-0 object-cover"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/9650934148122d0b92406b7162e88f0106e7a84e?width=214"
+            alt="Figma Screenshot 3"
+            class="w-24 h-52 rounded-xl border border-gray-700 flex-shrink-0 object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Apple Developer App Result -->
+      <div class="bg-white rounded-xl p-4 mb-4">
+        <!-- App Info -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-4">
+            <!-- App Icon -->
+            <div class="w-15 h-15 rounded-xl border border-gray-300 overflow-hidden flex-shrink-0">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/32c7382cc95622e8029350ed18962c21280a4455?width=120"
+                alt="Apple Developer Icon"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- App Details -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-black text-base font-medium mb-1">Apple Developer</h3>
+              <p class="text-gray-600 text-sm mb-1">Developer Tools</p>
+              <div class="flex items-center space-x-2">
+                <!-- Star Rating -->
+                <div class="flex items-center">
+                  <span class="text-gray-400 text-xs">★★★★☆</span>
+                </div>
+                <span class="text-gray-400 text-xs">4,3K</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cloud Download Icon -->
+          <button class="text-blue-500 text-2xl">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- App Screenshots -->
+        <div class="flex space-x-2 overflow-x-auto pb-2">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/56f2b797d1e0f4f8bb6afb3f31c6d38026290c01?width=214"
+            alt="Apple Developer Screenshot 1"
+            class="w-24 h-52 rounded-xl border border-gray-300 flex-shrink-0 object-cover"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/a5aa3230c8ae0d0e86f3890bed2ea6be2fdb9be4?width=214"
+            alt="Apple Developer Screenshot 2"
+            class="w-24 h-52 rounded-xl border border-gray-300 flex-shrink-0 object-cover"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/2f4f728b284baa9d7a6f5920495a55e2e0d9dccd?width=214"
+            alt="Apple Developer Screenshot 3"
+            class="w-24 h-52 rounded-xl border border-gray-300 flex-shrink-0 object-cover"
+          />
+        </div>
+      </div>
+    </div>
+
     <!-- Bottom Navigation -->
     <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 backdrop-blur-lg border-t border-gray-800">
       <div class="flex items-center justify-around py-2">
