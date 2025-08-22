@@ -106,7 +106,7 @@ const goToToday = () => {
     </div>
 
     <!-- Main Content - Today -->
-    <div v-if="activeTab === 'today'" class="px-4 pb-24">
+    <div v-if="activeView === 'today'" class="px-4 pb-24">
       <!-- Featured App Card -->
       <div class="relative overflow-hidden rounded-xl shadow-2xl">
         <!-- Hero Image with Rainbow Heart -->
