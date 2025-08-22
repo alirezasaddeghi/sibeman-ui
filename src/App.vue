@@ -689,11 +689,11 @@ const goToGames = () => {
 
         <!-- Games Tab -->
         <button
-          class="flex flex-col items-center py-2 px-4"
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'games' ? 'text-blue-400' : 'text-gray-400'"
           @click="goToGames()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z"/>
           </svg>
           <span class="text-xs font-medium">Games</span>
@@ -701,23 +701,23 @@ const goToGames = () => {
 
         <!-- Apps Tab -->
         <button
-          class="flex flex-col items-center py-2 px-4"
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'apps' ? 'text-blue-400' : 'text-gray-400'"
           @click="goToApps()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6,8A2,2 0 0,1 4,6A2,2 0 0,1 6,4A2,2 0 0,1 8,6A2,2 0 0,1 6,8M6,20A2,2 0 0,1 4,18A2,2 0 0,1 6,16A2,2 0 0,1 8,18A2,2 0 0,1 6,20M12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,8A2,2 0 0,1 16,6A2,2 0 0,1 18,4A2,2 0 0,1 20,6A2,2 0 0,1 18,8M18,20A2,2 0 0,1 16,18A2,2 0 0,1 18,16A2,2 0 0,1 20,18A2,2 0 0,1 18,20M12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14Z"/>
           </svg>
           <span class="text-xs font-medium">Apps</span>
         </button>
 
         <!-- Arcade Tab -->
-        <button 
-          class="flex flex-col items-center py-2 px-4"
+        <button
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'arcade' ? 'text-blue-400' : 'text-gray-400'"
           @click="activeTab = 'arcade'"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,15A1.5,1.5 0 0,1 13,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,13.5A1.5,1.5 0 0,1 14.5,15M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M6.5,10L8,8.5L9.5,10L8,11.5L6.5,10Z"/>
           </svg>
           <span class="text-xs font-medium">Arcade</span>
@@ -725,11 +725,11 @@ const goToGames = () => {
 
         <!-- Search Tab -->
         <button
-          class="flex flex-col items-center py-2 px-4"
+          class="flex flex-col items-center py-2 px-2 sm:px-4"
           :class="activeTab === 'search' ? 'text-blue-400' : 'text-gray-400'"
           @click="goToSearch()"
         >
-          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
           </svg>
           <span class="text-xs font-medium">Search</span>
