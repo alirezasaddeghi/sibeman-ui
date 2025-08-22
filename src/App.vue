@@ -178,8 +178,8 @@ const goToGames = () => {
 
       <!-- What to Play This Week Header -->
       <div class="flex items-center justify-between mb-6">
-        <h1 class="text-white text-3xl font-bold">What to Play This Week</h1>
-        <button class="text-blue-400 text-lg font-medium">See All</button>
+        <h1 class="text-white text-2xl sm:text-3xl font-bold leading-tight">What to Play This Week</h1>
+        <button class="text-blue-400 text-base sm:text-lg font-medium whitespace-nowrap">See All</button>
       </div>
     </div>
 
