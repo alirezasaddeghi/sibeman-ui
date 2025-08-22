@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const activeTab = ref('today')
-const activeView = ref('today') // 'today', 'search', 'appDetail'
+const activeView = ref('today') // 'today', 'search', 'appDetail', 'apps', 'games'
 const searchQuery = ref('')
 const selectedApp = ref({
   name: 'Figma',
@@ -39,6 +39,16 @@ const goToSearch = () => {
 const goToToday = () => {
   activeTab.value = 'today'
   activeView.value = 'today'
+}
+
+const goToApps = () => {
+  activeTab.value = 'apps'
+  activeView.value = 'apps'
+}
+
+const goToGames = () => {
+  activeTab.value = 'games'
+  activeView.value = 'games'
 }
 </script>
 
